@@ -13,6 +13,9 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
 import java.io.*;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Utility
 {
@@ -110,5 +113,36 @@ public class Utility
         ois.close();
 
         return apiKey;
+    }
+
+    /**
+     * HTTPサーバー上のテキストの内容を読み込む
+     *
+     * @param par1 URL
+     * @return テキストをListで返す
+     */
+    /**
+     * HTTPサーバー上のテキストの内容を読み込む
+     *
+     * @param par1 URL
+     * @return テキストをListで返す
+     */
+    public static List getHttpServerText(String par1) throws IOException
+    {
+        URL url = new URL(par1);
+        InputStream i = url.openConnection().getInputStream();
+
+        BufferedReader buf = new BufferedReader(new InputStreamReader(i, "UTF-8"));
+
+        String line;
+        List<String> arrayList = new ArrayList();
+
+        while ((line = buf.readLine()) != null)
+        {
+            arrayList.add(line);
+        }
+        buf.close();
+
+        return arrayList;
     }
 }

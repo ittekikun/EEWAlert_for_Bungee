@@ -48,7 +48,7 @@ public class TwitterManager
         //初期起動時(ファイルなし)
         if(accessToken == null)
         {
-            //null
+            EEWAlert.log.warning("AccessToken.datがありません。");
         }
         //ファイル有り
         else
@@ -58,7 +58,7 @@ public class TwitterManager
 
             startRecieveStream();
 
-            System.out.println("はいった");
+            System.out.println("受信を開始");
 
             canTweet = true;
         }

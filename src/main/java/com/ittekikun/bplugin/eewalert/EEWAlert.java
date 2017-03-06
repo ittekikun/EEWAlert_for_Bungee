@@ -6,15 +6,7 @@ import net.md_5.bungee.api.Title;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Plugin;
-import net.md_5.bungee.api.scheduler.ScheduledTask;
-import net.md_5.bungee.config.Configuration;
-import net.md_5.bungee.config.ConfigurationProvider;
-import net.md_5.bungee.config.YamlConfiguration;
-
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -39,6 +31,11 @@ public class EEWAlert extends Plugin
 
         eewAlertConfig = new EEWAlertConfig(this);
         eewAlertConfig.loadConfig();
+
+        if(eewAlertConfig.versionCheck)
+        {
+            getProxy().getPluginManager().registerListener(this, new PostLoginListener(this));
+        }
 
         apiKey = loadAPIkey();
 
@@ -78,7 +75,6 @@ public class EEWAlert extends Plugin
 
         if(eew.alarmType == GENERAL)
         {
-            //TODO ddd
             if(!notified && !eew.isRetweet())
             {
                 eewMes.add(ChatColor.RED +    "----------緊急地震速報----------");
